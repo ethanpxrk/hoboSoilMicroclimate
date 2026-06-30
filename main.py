@@ -9,12 +9,11 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 INPUT_DIR = os.path.join(BASE, "data")
 OUTPUT_DIR = os.path.join(BASE, "output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-INTERVAL_S = 600; MIN_READINGS_PER_DAY = 140
+INTERVAL_S = 600; MIN_READINGS_PER_DAY = 140; START_DATE = "2026-06-27"
 
 TCOL="Temperature   (°C)"; RHCOL="RH   (%)"
 PARCOL="Photosynthetically Active Radiation   (μmol/m²/s)"
 VPDCOL="Vapor Pressure Deficit   (kPa)"; DTCOL="Date-Time (EDT)"
-START_DATE = "2026-04-27"
 
 SITES = {
     "ELG": ["22396965","22396959","22385220","22385208"],          # SU, SE, SC, NU
