@@ -1,4 +1,5 @@
 import glob, os, re, warnings
+from datetime import date
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,10 +7,10 @@ import pandas as pd
 warnings.filterwarnings("ignore")
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-INPUT_DIR = os.path.join(BASE, "data")
+INPUT_DIR = os.path.join(BASE, "hobo-data")
 OUTPUT_DIR = os.path.join(BASE, "output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-INTERVAL_S = 600; MIN_READINGS_PER_DAY = 140; START_DATE = "2026-06-27"
+INTERVAL_S = 600; MIN_READINGS_PER_DAY = 140; START_DATE = "2026-06-27"; STAMP = date.today().isoformat()
 
 TCOL="Temperature   (°C)"; RHCOL="RH   (%)"
 PARCOL="Photosynthetically Active Radiation   (μmol/m²/s)"
@@ -82,6 +83,7 @@ plt.rcParams.update({"font.family":"DejaVu Sans","font.size":11,"axes.titlesize"
     "figure.dpi":150,"savefig.dpi":200,"legend.frameon":False,"axes.grid":True,
     "grid.alpha":0.25,"grid.linewidth":0.6})
 
+# Figure 1: Time Series
 def fmt_time(ax):
     ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
@@ -113,8 +115,9 @@ axs[0,1].set_ylim(top=102)
 fig.suptitle("10-min Time Series (ELG vs Pasture Food Forest)", fontsize=15, fontweight="bold", y=0.98)
 fig.tight_layout(rect=[0, 0, 0.84, 0.96])
 site_legend(fig, all_ids)
-fig.savefig(f"{OUTPUT_DIR}/fig1_timeseries.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
+fig.savefig(f"{OUTPUT_DIR}/Microclimate-TimeSeries-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
+# Fig 2: Diurnal
 def diurnal(df,col):
     g=df.copy(); g["h"]=g[DTCOL].dt.hour
     return g.groupby("h")[col].mean()
@@ -132,7 +135,7 @@ for ax,(title,unit,col,ids) in zip(axs.flat,
 fig.suptitle("Mean Diurnal Cycles", fontsize=15, fontweight="bold")
 fig.tight_layout(rect=[0, 0, 0.84, 0.96])
 site_legend(fig, all_ids)
-fig.savefig(f"{OUTPUT_DIR}/fig2_diurnal.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
+fig.savefig(f"{OUTPUT_DIR}/Microclimate-Diurnal-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
 rows=[]
 for sn in all_ids:
@@ -142,6 +145,7 @@ for sn in all_ids:
 dli_df=pd.DataFrame(rows)
 mean_dli=dli_df.groupby("sn")["dli"].agg(["mean","std"]).reindex(all_ids)
 
+# Figure 3: Light
 fig,axs=plt.subplots(1,2,figsize=(14,5.5),gridspec_kw={"width_ratios":[1,1.3]})
 ax=axs[0]; x=0; xticks=[]; xlabs=[]
 for si,(site,ids) in enumerate(SITES.items()):
@@ -168,7 +172,7 @@ plt.setp(ax.get_xticklabels(),rotation=0)
 fig.suptitle("Daily Light Integral (complete days only)", fontsize=15, fontweight="bold")
 fig.tight_layout(rect=[0, 0.05, 0.87, 0.95])
 site_legend(fig, all_ids, x=0.88, top=0.86)
-fig.savefig(f"{OUTPUT_DIR}/fig3_light_gradient.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
+fig.savefig(f"{OUTPUT_DIR}/Microcliamte-Light-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
 for site,ids in SITES.items():
     print(f"\n--{site}--")
