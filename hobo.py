@@ -83,7 +83,6 @@ plt.rcParams.update({"font.family":"DejaVu Sans","font.size":11,"axes.titlesize"
     "figure.dpi":150,"savefig.dpi":200,"legend.frameon":False,"axes.grid":True,
     "grid.alpha":0.25,"grid.linewidth":0.6})
 
-# Figure 1: Time Series
 def fmt_time(ax):
     ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
@@ -117,7 +116,6 @@ fig.tight_layout(rect=[0, 0, 0.84, 0.96])
 site_legend(fig, all_ids)
 fig.savefig(f"{OUTPUT_DIR}/Microclimate-TimeSeries-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
-# Fig 2: Diurnal
 def diurnal(df,col):
     g=df.copy(); g["h"]=g[DTCOL].dt.hour
     return g.groupby("h")[col].mean()
@@ -145,7 +143,6 @@ for sn in all_ids:
 dli_df=pd.DataFrame(rows)
 mean_dli=dli_df.groupby("sn")["dli"].agg(["mean","std"]).reindex(all_ids)
 
-# Figure 3: Light
 fig,axs=plt.subplots(1,2,figsize=(14,5.5),gridspec_kw={"width_ratios":[1,1.3]})
 ax=axs[0]; x=0; xticks=[]; xlabs=[]
 for si,(site,ids) in enumerate(SITES.items()):

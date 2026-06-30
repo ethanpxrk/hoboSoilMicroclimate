@@ -22,13 +22,11 @@ DEPTH_STYLE = {"Shallow": "-", "Deep": "--"}
 DEPTH_LW = {"Shallow": 1.9, "Deep": 1.4}
 POS_ORDER = ["Control", "North", "South"]; DEPTH_ORDER = ["Shallow", "Deep"]
 
-
 def classify(name):
     pos = "Control" if "control" in name.lower() else "North" if "north" in name.lower() else \
           "South" if "south" in name.lower() else "?"
     depth = "Deep" if "deep" in name.lower() else "Shallow" if "shallow" in name.lower() else "?"
     return pos, depth
-
 
 def parse_tms(path):
     text = open(path, encoding="utf-8", errors="replace").read().splitlines()
@@ -75,23 +73,19 @@ def lab(k): return f"{k[0]} {k[1]}"
 
 exp_per_day = 86400 / INTERVAL_S
 
-
 def daily(df, col):
     g = df.set_index("dt")[col].resample("D")
     out = g.mean()
     return out[g.count() >= MIN_FRAC_PER_DAY * exp_per_day]
-
 
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11, "axes.titlesize": 13,
     "axes.titleweight": "bold", "axes.labelsize": 11, "axes.edgecolor": "#444",
     "axes.linewidth": 0.8, "figure.dpi": 150, "savefig.dpi": 200, "legend.frameon": False,
     "axes.grid": True, "grid.alpha": 0.25, "grid.linewidth": 0.6})
 
-
 def month_axis(ax):
     ax.xaxis.set_major_locator(mdates.MonthLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b"))
-
 
 def legend_outside(fig, x=0.86, top=0.92):
     h = [plt.Line2D([], [], **style(k)) for k in keys]
@@ -100,8 +94,6 @@ def legend_outside(fig, x=0.86, top=0.92):
                      title_fontsize=9, frameon=False)
     leg._legend_box.align = "left"
 
-
-# Fig 1: Temperatures
 fig, axs = plt.subplots(3, 1, figsize=(13, 9), sharex=True)
 for ax, (col, title) in zip(axs, [("T1", "Soil temperature (T1, ≈ -6 cm)"),
                                    ("T2", "Surface temperature (T2, 0 cm)"),
@@ -114,7 +106,6 @@ fig.suptitle("Daily Mean Temperatures", fontsize=15, fontweight="bold")
 fig.tight_layout(rect=[0, 0, 0.85, 0.96]); legend_outside(fig)
 fig.savefig(f"{OUTPUT_DIR}/Soils-Temp-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
-# Fig 2: Soil Moisture
 fig, axs = plt.subplots(2, 1, figsize=(13, 8), sharex=True)
 ax = axs[0]
 for k in keys:
@@ -138,11 +129,9 @@ fig.suptitle("Soil Moisture", fontsize=15, fontweight="bold")
 fig.tight_layout(rect=[0, 0, 0.85, 0.96]); legend_outside(fig, top=0.92)
 fig.savefig(f"{OUTPUT_DIR}/Soils-Moisture-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
-# Fig 3: Diurnal
 def diurnal(df, col):
     g = df.copy(); g["h"] = g["dt"].dt.hour
     return g.groupby("h")[col].mean()
-
 fig, axs = plt.subplots(1, 2, figsize=(13, 5), sharey=True)
 for ax, (col, title) in zip(axs, [("T3", "Air (T3)"), ("T1", "Soil (T1)")]):
     for k in keys:
