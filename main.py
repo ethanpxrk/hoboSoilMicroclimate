@@ -14,6 +14,7 @@ INTERVAL_S = 600; MIN_READINGS_PER_DAY = 140
 TCOL="Temperature   (°C)"; RHCOL="RH   (%)"
 PARCOL="Photosynthetically Active Radiation   (μmol/m²/s)"
 VPDCOL="Vapor Pressure Deficit   (kPa)"; DTCOL="Date-Time (EDT)"
+START_DATE = "2026-04-27"
 
 SITES = {
     "ELG": ["22396965","22396959","22385220","22385208"],          # SU, SE, SC, NU
@@ -27,8 +28,8 @@ LABELS = {
 SITE_OF = {sn:site for site,ids in SITES.items() for sn in ids}
 ORDER = SITES["ELG"] + SITES["Pasture Food Forest"]
 COLORSEQ = {
-    "ELG": ["#6baed6","#3182bd","#08519c","#08306b"],
-    "Pasture Food Forest": ["#fd8d3c","#e6550d","#a63603"],
+    "ELG": ["#7DC9F0", "#1CA9C9", "#1F5FBF", "#0B1F6B"],
+    "Pasture Food Forest": ["#F2B705", "#EA5A0B", "#A11627"],
 }
 colors = {}
 for site, ids in SITES.items():
@@ -62,6 +63,8 @@ for f in files:
     df = pd.read_excel(f, sheet_name="Data")
     df[DTCOL] = pd.to_datetime(df[DTCOL], errors="coerce")
     df = df.dropna(subset=[DTCOL]).sort_values(DTCOL)
+    if START_DATE is not None:
+        df = df[df[DTCOL] >= pd.Timestamp(START_DATE)]
     loggers[sn] = {"df": df, "full": TCOL in df.columns}
 
 missing = [s for s in ORDER if s not in loggers]
