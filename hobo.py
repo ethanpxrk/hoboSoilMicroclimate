@@ -169,7 +169,7 @@ plt.setp(ax.get_xticklabels(),rotation=0)
 fig.suptitle("Daily Light Integral (complete days only)", fontsize=15, fontweight="bold")
 fig.tight_layout(rect=[0, 0.05, 0.87, 0.95])
 site_legend(fig, all_ids, x=0.88, top=0.86)
-fig.savefig(f"{OUTPUT_DIR}/Microcliamte-Light-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
+fig.savefig(f"{OUTPUT_DIR}/Microclimate-Light-{STAMP}.png", bbox_inches="tight", facecolor="white"); plt.close(fig)
 
 for site,ids in SITES.items():
     print(f"\n--{site}--")
