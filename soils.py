@@ -11,9 +11,9 @@ INPUT_DIR = os.path.join(BASE, "soils-data")
 OUTPUT_DIR = os.path.join(BASE, "output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-INTERVAL_S = 900            # 15-min logging
-LOCAL_TZ = "America/New_York"   # diurnal cycle is shown in this zone (handles EDT/EST)
-MIN_FRAC_PER_DAY = 0.8      # keep daily means only when >=80% of expected readings present
+INTERVAL_S = 900                                # 15-min logging
+LOCAL_TZ = "America/New_York"                   # diurnal cycle is shown in this zone (handles EDT/EST)
+MIN_FRAC_PER_DAY = 0.8                          # keep daily means only when >=80% of expected readings present
 DEFAULT_COEF = (0.0, 0.00016119, -0.10995650)   # FA, FB, FC used when a file has no header
 STAMP = date.today().isoformat()
 
@@ -38,7 +38,6 @@ SITES = {
     },
 }
 
-# ELG files start with a two-letter position code (SU/NU/SC/SE).
 ELG_CODES = {"su": "SU", "nu": "NU",
              "sc": "SC",     "se": "SE"}
 
@@ -68,7 +67,7 @@ def parse_tms(path, start=None):
         p = line.split(";")
         if len(p) >= 9 and re.fullmatch(r"\d{6,}", p[1]):   # layout (a): serial in col 1
             serial = p[1]; dt, t1, t2, t3, mo = p[2], p[4], p[5], p[6], p[7]
-        else:                                               # layout (b)
+        else:                                                       # layout (b)
             dt, t1, t2, t3, mo = p[1], p[3], p[4], p[5], p[6]
         recs.append((dt, t1, t2, t3, mo))
     df = pd.DataFrame(recs, columns=["dt", "T1", "T2", "T3", "moist"])
@@ -97,9 +96,7 @@ for f in files:
                                 "serial": serial, "name": os.path.basename(f)}
 
 def cadence_per_day(df):
-    """Expected readings/day inferred from the logger's own median interval.
-    Loggers here mix cadences (e.g. some drop to hourly at deployment), so a
-    global 15-min assumption would wrongly discard the coarser records."""
+    """Expected readings inferred from the logger's median interval."""
     if len(df) < 3:
         return 86400 / INTERVAL_S
     med = df["dt"].diff().dt.total_seconds().median()
@@ -152,7 +149,7 @@ def make_site_figures(site):
                          title_fontsize=9, frameon=False)
         leg._legend_box.align = "left"
 
-    # --- Temperatures -------------------------------------------------------
+    # Temperatures
     fig, axs = plt.subplots(3, 1, figsize=(13, 9), sharex=True)
     for ax, (col, title) in zip(axs, [("T1", "Soil temperature (T1, ≈ -6 cm)"),
                                        ("T2", "Surface temperature (T2, 0 cm)"),
@@ -166,7 +163,7 @@ def make_site_figures(site):
     fig.savefig(f"{OUTPUT_DIR}/{site}-Temp-{STAMP}.png", bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
-    # --- Moisture -----------------------------------------------------------
+    # Moisture
     fig, axs = plt.subplots(2, 1, figsize=(13, 8), sharex=True)
     ax = axs[0]
     for k in keys:
@@ -191,7 +188,7 @@ def make_site_figures(site):
     fig.savefig(f"{OUTPUT_DIR}/{site}-Moisture-{STAMP}.png", bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
-    # --- Diurnal ------------------------------------------------------------
+    # Diurnal
     fig, axs = plt.subplots(1, 2, figsize=(13, 5), sharey=True)
     for ax, (col, title) in zip(axs, [("T3", "Air temperature (T3, ≈ +12 cm)"),
                                       ("T1", "Soil temperature (T1, ≈ -6 cm)")]):

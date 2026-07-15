@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e35ffafc-48c1-48c0-a667-004d0ae23702" name="Changes" comment="cleaned">
+    <list default="true" id="e35ffafc-48c1-48c0-a667-004d0ae23702" name="Changes" comment="hi noe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hobo.py" beforeDir="false" afterPath="$PROJECT_DIR$/hobo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/Microclimate-Diurnal-06-30-26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/Microclimate-Light-06-30-26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/Microclimate-TimeSeries-06-30-26.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/soils.py" beforeDir="false" afterPath="$PROJECT_DIR$/soils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,22 +44,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.soils.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ethanpark/PycharmProjects/microclimate-analysis-06-30-26&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "Python.soils.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/ethanpark/PycharmProjects/hoboSoilMicroclimate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -100,6 +96,12 @@
       <workItem from="1782924235015" duration="195000" />
       <workItem from="1783615738063" duration="3555000" />
       <workItem from="1783622909645" duration="1066000" />
+      <workItem from="1783971624470" duration="559000" />
+      <workItem from="1784047649282" duration="223000" />
+      <workItem from="1784048830589" duration="255000" />
+      <workItem from="1784122352730" duration="6000" />
+      <workItem from="1784122364396" duration="59000" />
+      <workItem from="1784122578323" duration="93000" />
     </task>
     <task id="LOCAL-00001" summary="4.30.26 Data Entry">
       <option name="closed" value="true" />
@@ -141,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782849293932</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="hi noe">
+      <option name="closed" value="true" />
+      <created>1783971651943</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1783971651943</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +163,8 @@
     <MESSAGE value="4.30.26 Figures" />
     <MESSAGE value="Refactored for soils data" />
     <MESSAGE value="cleaned" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaned" />
+    <MESSAGE value="hi noe" />
+    <option name="LAST_COMMIT_MESSAGE" value="hi noe" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main Coverage Results" MODIFIED="1782830579529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
